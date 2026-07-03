@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rumah Makan Purnama - Sejak 2006</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ================= KODE DASAR (TEMA COKELAT) ================= */
+        :root {
+            --primary-brown: #A0522D; 
+            --dark-brown: #4A3020; 
+            --accent-orange: #D35400; 
+            --light-bg: #FCF9F6; 
+            --white: #FFFFFF;
+            --text-dark: #333333;
+            --text-gray: #666666;
+            --wa-green: #25D366;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* ================= NAVIGASI ================= */
+        header {
+            background-color: var(--white);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            box-shadow: 0 4px 20px rgba(160, 82, 45, 0.1);
+            padding: 5px 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            max-width: 1200px;
+            margin: auto;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary-brown);
+            letter-spacing: 1px;
+        }
+        
+        .logo span {
+            color: var(--dark-brown);
+        }
+
+        .nav-links { display: flex; }
+        .nav-links li { margin-left: 30px; }
+        .nav-links li a {
+            font-weight: 500;
+            font-size: 16px;
+            color: var(--text-dark);
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-brown);
+            transition: width 0.3s;
+        }
+
+        .nav-links li a:hover { color: var(--primary-brown); }
+        .nav-links li a:hover::after { width: 100%; }
+
+        /* HAMBURGER MENU */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .menu-toggle .bar {
+            height: 3px;
+            width: 25px;
+            background-color: var(--dark-brown);
+            margin: 4px 0;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+
+        /* ================= SECTIONS & ANIMASI ================= */
+        section {
+            padding: 100px 5%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: var(--dark-brown);
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-brown);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ================= HERO SECTION (Gambar 1) ================= */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(74, 48, 32, 0.8), rgba(74, 48, 32, 0.7)), url('IMG_8195.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 20px;
+            max-width: 100%;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+        }
+
+        .hero p {
+            font-size: 22px;
+            margin-bottom: 40px;
+            font-weight: 300;
+            color: #F5EBE6;
+        }
+
+        .btn {
+            background-color: var(--accent-orange);
+            color: var(--white);
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+            display: inline-block;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(211, 84, 0, 0.4);
+            border: 2px solid var(--accent-orange);
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--white);
+            transform: translateY(-3px);
+            border: 2px solid var(--white);
+        }
+
+        /* ================= TENTANG KAMI (PROFIL OWNER) ================= */
+        .about-content {
+            max-width: 1000px;
+            margin: auto;
+            background: var(--white);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(160, 82, 45, 0.05);
+            border-top: 4px solid var(--primary-brown);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .owner-img-wrapper {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+        }
+
+        .owner-img {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            object-fit: cover;
+        }
+
+        .owner-text {
+            flex: 2;
+            min-width: 300px;
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--text-gray);
+            text-align: justify;
+        }
+
+        .owner-text h3 {
+            color: var(--dark-brown);
+            font-size: 26px;
+            margin-bottom: 15px;
+        }
+
+        /* ================= EFEK PARALLAX DEKORASI ================= */
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .parallax-1 {
+            background-image: linear-gradient(rgba(74, 48, 32, 0.7), rgba(74, 48, 32, 0.7)), url('IMG_8197.jpg');
+        }
+
+        .parallax-2 {
+            background-image: linear-gradient(rgba(74, 48, 32, 0.8), rgba(74, 48, 32, 0.8)), url('IMG_8196.jpg');
+        }
+
+        .parallax h2 {
+            color: var(--white);
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+        }
+
+        /* ================= MENU ELEGAN (Tanpa Gambar) ================= */
+        .menu-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .menu-item {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            border-left: 5px solid var(--primary-brown);
+            transition: transform 0.3s;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(160, 82, 45, 0.1);
+        }
+
+        .menu-header {
+            margin-bottom: 10px;
+        }
+
+        .menu-header h4 {
+            color: var(--dark-brown);
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .menu-item p {
+            font-size: 15px;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* ================= KONTAK ================= */
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .contact-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(160, 82, 45, 0.08);
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+            border-bottom: 5px solid var(--primary-brown);
+        }
+
+        .contact-card h3 { color: var(--dark-brown); margin-bottom: 20px; font-size: 22px; }
+        .contact-card p { color: var(--text-gray); margin-bottom: 10px; line-height: 1.6; }
+
+        .btn-wa-card {
+            display: inline-block;
+            margin-top: 25px;
+            background-color: var(--wa-green);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-wa-card:hover { background-color: #1ebe57; transform: scale(1.05); }
+
+        /* ================= FLOATING WA BUTTON ================= */
+        .floating-wa {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--wa-green);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            transition: all 0.3s;
+        }
+
+        .floating-wa:hover { transform: scale(1.1); }
+
+        /* ================= FOOTER ================= */
+        footer {
+            background-color: var(--dark-brown);
+            color: var(--white);
+            text-align: center;
+            padding: 25px;
+            font-size: 14px;
+        }
+
+        /* ================= RESPONSIVE (HP) ================= */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 38px; }
+            .hero p { font-size: 18px; margin-bottom: 30px; }
+            
+            section { padding: 70px 5%; }
+            .parallax { height: 200px; }
+            .parallax h2 { font-size: 24px; text-align: center; padding: 0 10px;}
+            
+            .owner-text { text-align: center; } /* Teks jadi ke tengah kalau di layar kecil */
+            
+            .menu-toggle { display: flex; }
+            
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                height: 100vh;
+                background-color: var(--white);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 70%;
+                transition: right 0.4s ease-in-out;
+                box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+            }
+            
+            .nav-links li { margin: 20px 0; }
+            .nav-links li a { font-size: 20px; }
+            .nav-links.nav-active { right: 0; }
+            
+            .toggle-active .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            .toggle-active .bar:nth-child(2) { opacity: 0; }
+            .toggle-active .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & Navigasi -->
+    <header id="header">
+        <div class="navbar">
+            <a href="#" class="logo">RM <span>PURNAMA</span></a>
+            <ul class="nav-links">
+                <li><a href="#beranda">Beranda</a></li>
+                <li><a href="#tentang">Tentang</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+            </ul>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="hero">
+        <div class="reveal">
+            <h1>Rumah Makan Purnama</h1>
+            <p>Menyajikan Cita Rasa Khas Nusantara Sejak 2006</p>
+            <a href="#menu" class="btn">Lihat Menu Kami</a>
+        </div>
+    </section>
+
+    <!-- Tentang Kami (Dengan Profil Owner) -->
+    <section id="tentang">
+        <h2 class="section-title reveal">Kisah Kami</h2>
+        <div class="about-content reveal">
+            <!-- Foto Owner -->
+            <div class="owner-img-wrapper">
+                <img src="IMG_8198.jpeg" alt="Mohd Ali Basyah" class="owner-img">
+            </div>
+            <!-- Cerita Owner -->
+            <div class="owner-text">
+                <h3>Merintis Rasa Bersama Sejak 2006</h3>
+                <p>Berdiri pada tahun <strong>2006</strong>, <b>Rumah Makan Purnama</b> lahir dari visi dan kerja keras <strong>Bapak Mohd Ali Basyah</strong> (Owner) bersama sang istri tercinta, <strong>Ibu Desrita</strong>, seorang wanita yang memiliki darah keturunan Minang.</p>
+                <br>
+                <p>Keduanya memulai karier kuliner dan merintis usaha dari nol di Aceh Timur. Menggabungkan kekayaan rempah otentik Aceh dengan nuansa khas bumbu Minang, pasangan ini berhasil menciptakan perpaduan rasa yang istimewa. Hingga hari ini, kami terus menjaga kualitas bahan segar pilihan dan berkomitmen menghadirkan rumah makan yang nyaman bagi para pecinta kuliner.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PEMISAH 1 (Efek Parallax menggunakan IMG_8197.jpg) -->
+    <div class="parallax parallax-1 reveal">
+        <h2>Cita Rasa Bumbu Tradisional</h2>
+    </div>
+
+    <!-- Menu Favorit (Teks Elegan Bersih) -->
+    <section id="menu">
+        <h2 class="section-title reveal">Menu Andalan</h2>
+        
+        <div class="menu-list">
+            <div class="menu-item reveal">
+                <div class="menu-header">
+                    <h4>Nasi Goreng</h4>
+                </div>
+                <p>Nasi goreng spesial dengan bumbu racikan khas yang menggugah selera, disajikan hangat dengan pelengkap nikmat yang pas di lidah.</p>
+            </div>
+            
+            <div class="menu-item reveal">
+                <div class="menu-header">
+                    <h4>Gulai Ikan</h4>
+                </div>
+                <p>Ikan segar pilihan yang dimasak perlahan dalam kuah gulai kuning kental, memadukan kekayaan rempah otentik khas Minang dan Aceh.</p>
+            </div>
+            
+            <div class="menu-item reveal">
+                <div class="menu-header">
+                    <h4>Kuah Nangka</h4>
+                </div>
+                <p>Sayur nangka muda yang dimasak hingga sangat empuk dalam balutan kuah santan gurih dan bumbu rempah tradisional yang meresap sempurna.</p>
+            </div>
+
+            <div class="menu-item reveal">
+                <div class="menu-header">
+                    <h4>Kuah Pliek</h4>
+                </div>
+                <p>Hidangan ikonik khas Aceh berupa campuran sayuran segar yang dimasak dengan patarana (pliek u), memberikan cita rasa unik, gurih, dan tak terlupakan.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PEMISAH 2 (Efek Parallax menggunakan IMG_8196.jpg) -->
+    <div class="parallax parallax-2 reveal">
+        <h2>Pesan Sekarang & Nikmati Kelezatannya</h2>
+    </div>
+
+    <!-- Kontak & Lokasi -->
+    <section id="kontak">
+        <h2 class="section-title reveal">Kunjungi Kami</h2>
+        <div class="contact-container">
+            <!-- Lokasi -->
+            <div class="contact-card reveal">
+                <h3>📍 Alamat Lengkap</h3>
+                <p><strong>WPFJ+R55</strong></p>
+                <p>Jl. Keude Geurubak, Buket Teukuh</p>
+                <p>Kec. Idi Tunong, Kabupaten Aceh Timur</p>
+                <p>Aceh 24455</p>
+                <br>
+                <a href="https://www.google.com/maps/search/WPFJ+R55,+Jl.+Keude+Geurubak,+Buket+Teukuh,+Kec.+Idi+Tunong,+Kabupaten+Aceh+Timur,+Aceh+24455" target="_blank" style="color: var(--primary-brown); font-weight: 600; text-decoration: underline;">Buka di Google Maps</a>
+            </div>
+
+            <!-- WhatsApp -->
+            <div class="contact-card reveal">
+                <h3>📞 Layanan Pesanan</h3>
+                <p>Pesan tempat, pemesanan katering, atau pertanyaan seputar menu bisa langsung melalui WhatsApp kami.</p>
+                <a href="https://wa.me/6281371231472" target="_blank" class="btn-wa-card">Chat via WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tombol WhatsApp Melayang -->
+    <a href="https://wa.me/6281371231472" target="_blank" class="floating-wa" title="Hubungi Kami">
+        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c-.003 1.396.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.005-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+        </svg>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Rumah Makan Purnama. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        const menuToggle = document.querySelector('#mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        const menuItems = document.querySelectorAll('.nav-links li a');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-active');
+            menuToggle.classList.toggle('toggle-active');
+        });
+
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                if (navLinks.classList.contains('nav-active')) {
+                    navLinks.classList.remove('nav-active');
+                    menuToggle.classList.remove('toggle-active');
+                }
+            });
+        });
+
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 30) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        function reveal() {
+            var reveals = document.querySelectorAll('.reveal');
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 120;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        
+        window.addEventListener('scroll', reveal);
+        reveal();
+    </script>
+</body>
+</html>
